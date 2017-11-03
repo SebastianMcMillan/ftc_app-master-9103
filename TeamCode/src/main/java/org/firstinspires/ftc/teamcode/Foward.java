@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
- * Created by Sebastianggggggggg on 10/30/2017.
+ * Created by Sebastian on 10/30/2017.
  */
 
 @Autonomous (name = "Foward", group = "Linear OpMode")
