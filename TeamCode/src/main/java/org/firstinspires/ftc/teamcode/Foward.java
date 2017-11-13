@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by Sebastian on 10/30/2017.
  */
 
-@Autonomous (name = "Foward", group = "Linear OpMode")
+@Autonomous (name = "Foward Prototype -- PLEASE DO NOT RUN THIS!!! PLEASE RUN PROJECT ULTIMA AUTONOMOUS!!!", group = "Linear OpMode")
 
 public class Foward  extends LinearOpMode {
 
@@ -30,7 +30,7 @@ public class Foward  extends LinearOpMode {
 
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
         runtime.reset();

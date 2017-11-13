@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.Range;
  * Created by Sebastian on 10/30/2017.
  */
 
-@TeleOp(name = "Gamepad Test", group = "Linear OpMode")
+@TeleOp(name = "Gamepad Prototype -- PLEASE DO NOT RUN! RUN PROJECT ULTIMA TELEOP INSTEAD!!!", group = "Linear OpMode")
 
 public class DriverControlledPrototype extends LinearOpMode {
 
@@ -38,16 +38,26 @@ public class DriverControlledPrototype extends LinearOpMode {
             while (opModeIsActive()) {
                 double leftPower;
                 double rightPower;
+                while (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
+                    double drive = -gamepad1.left_stick_y;
+                    double turn = gamepad1.left_stick_x;
 
-                double drive = -gamepad1.left_stick_y;
-                double turn  =  gamepad1.right_stick_x;
+                    leftPower = Range.clip(drive - turn, -1.0, 1.0);
+                    rightPower = Range.clip(drive + turn, -1.0, 1.0);
 
-                leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-                rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-                leftMotor.setPower(leftPower);
-                rightMotor.setPower(rightPower);
-
+                    leftMotor.setPower(leftPower);
+                    rightMotor.setPower(rightPower);
+                }
+                while (gamepad1.right_trigger > 0) {
+                    leftMotor.setPower(-gamepad1.right_trigger);
+                    rightMotor.setPower(gamepad1.right_trigger);
+                }
+                while (gamepad1.left_trigger > 0) {
+                        leftMotor.setPower(gamepad1.left_trigger);
+                        rightMotor.setPower(-gamepad1.left_trigger);
+                }
+                leftMotor.setPower(0.0);
+                rightMotor.setPower(0.0);
                 telemetry.addData("Status", "Running");
                 telemetry.update();
                 idle();
