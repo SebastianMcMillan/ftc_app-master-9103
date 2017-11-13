@@ -51,6 +51,10 @@ public class UltimaTeleOp extends LinearOpMode {
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
 
+        //HW Map Servos on Controller sonicScrewdriver
+        leftServo = hardwareMap.servo.get("leftServo");
+        rightServo = hardwareMap.servo.get("rightServo");
+
         //Reverse Direction of The Left Motors
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -96,12 +100,14 @@ public class UltimaTeleOp extends LinearOpMode {
                             frontRightMotor.setPower(-gamepad1.right_trigger);
                             backLeftMotor.setPower(-gamepad1.right_trigger);
                             backRightMotor.setPower(gamepad1.right_trigger);
-                        } else if (gamepad1.left_trigger > 0) {
+                        }
+                        if (gamepad1.left_trigger > 0) {
                             frontLeftMotor.setPower(-gamepad1.left_trigger);
                             frontRightMotor.setPower(gamepad1.left_trigger);
                             backLeftMotor.setPower(gamepad1.left_trigger);
                             backRightMotor.setPower(-gamepad1.left_trigger);
-                        } else {
+                        }
+                        if (gamepad1.left_trigger == 0 && gamepad1.right_trigger >0 ){
                             frontLeftMotor.setPower(0.0);
                             frontRightMotor.setPower(0.0);
                             backLeftMotor.setPower(0.0);
@@ -109,7 +115,16 @@ public class UltimaTeleOp extends LinearOpMode {
                         }
                     }
                 }
+            while (gamepad1.a) {
+                leftServo.setPosition(0.5);
+                rightServo.setPosition(0.5);
+            }
+            while (gamepad1.b) {
+                leftServo.setPosition(0.0);
+                rightServo.setPosition(1.0);
+            }
 
+            frontLeftMotor.setPower(0.0);
             frontRightMotor.setPower(0.0);
             backLeftMotor.setPower(0.0);
             backRightMotor.setPower(0.0);
