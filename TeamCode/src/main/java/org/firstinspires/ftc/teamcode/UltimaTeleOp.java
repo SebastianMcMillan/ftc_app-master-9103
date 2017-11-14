@@ -95,30 +95,23 @@ public class UltimaTeleOp extends LinearOpMode {
                     }
 
                     while (gamepad1.right_bumper) {
-                        if (gamepad1.right_trigger > 0) {
+                        while (gamepad1.right_trigger > 0) {
                             frontLeftMotor.setPower(gamepad1.right_trigger);
                             frontRightMotor.setPower(-gamepad1.right_trigger);
                             backLeftMotor.setPower(-gamepad1.right_trigger);
                             backRightMotor.setPower(gamepad1.right_trigger);
                         }
-                        else {
-                            frontLeftMotor.setPower(0.0);
-                            frontRightMotor.setPower(0.0);
-                            backLeftMotor.setPower(0.0);
-                            backRightMotor.setPower(0.0);
-                        }
-                        if (gamepad1.left_trigger > 0) {
+
+                        while (gamepad1.left_trigger > 0) {
                             frontLeftMotor.setPower(-gamepad1.left_trigger);
                             frontRightMotor.setPower(gamepad1.left_trigger);
                             backLeftMotor.setPower(gamepad1.left_trigger);
                             backRightMotor.setPower(-gamepad1.left_trigger);
                         }
-                        else {
-                            frontLeftMotor.setPower(0.0);
-                            frontRightMotor.setPower(0.0);
-                            backLeftMotor.setPower(0.0);
-                            backRightMotor.setPower(0.0);
-                        }
+                        frontLeftMotor.setPower(0.0);
+                        frontRightMotor.setPower(0.0);
+                        backLeftMotor.setPower(0.0);
+                        backRightMotor.setPower(0.0);
                     }
                 }
             while (gamepad1.a) {
