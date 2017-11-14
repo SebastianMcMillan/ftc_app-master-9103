@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by dcho0 on 11/13/2017.
  */
 @Autonomous(name = "LeadEAuton", group = "Linear OpMode")
-public class LeadEAuton extends LinearOpMode {
+public class AutonLeadE extends LinearOpMode {
 
 
     //Declare OpMode Members
