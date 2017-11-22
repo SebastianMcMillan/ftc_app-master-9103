@@ -58,19 +58,35 @@ public class AutonLeadE extends LinearOpMode {
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        leftServo.setPosition(0);
-        rightServo.setPosition(0);
+        leftServo.setPosition(0.0);
+        rightServo.setPosition(1.0);
+
+        sleep(5000);
+
+        leftServo.setPosition(0.5);
+        rightServo.setPosition(0.5);
 
         waitForStart();
         runtime.reset();
 
         if (opModeIsActive())
-            frontLeftMotor.setPower(1);
-            frontRightMotor.setPower(1);
-            backRightMotor.setPower(1);
-            backLeftMotor.setPower(1);
+            frontLeftMotor.setPower(1.0);
+            frontRightMotor.setPower(1.0);
+            backRightMotor.setPower(1.0);
+            backLeftMotor.setPower(1.0);
             sleep(1000);
 
+            frontLeftMotor.setPower(0.0);
+            frontRightMotor.setPower(0.0);
+            backLeftMotor.setPower(0.0);
+            backRightMotor.setPower(0.0);
+            sleep(500);
+
+            frontLeftMotor.setPower(-1.0);
+            frontRightMotor.setPower(1.0);
+            backLeftMotor.setPower(-1.0);
+            backRightMotor.setPower(1.0);
+            sleep(400);
 
 
 

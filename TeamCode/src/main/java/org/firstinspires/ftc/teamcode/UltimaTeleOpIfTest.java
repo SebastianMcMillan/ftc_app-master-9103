@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Project Ultima TeleOp", group = "Linear OpMode")
 
-public class UltimaTeleOp extends LinearOpMode {
+public class UltimaTeleOpIfTest extends LinearOpMode {
 
     //Declare OpMode Members
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,42 +67,45 @@ public class UltimaTeleOp extends LinearOpMode {
             double leftPower;
             double rightPower;
 
-            while (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
-                double drive = -gamepad1.left_stick_y;
-                double turn = gamepad1.left_stick_x;
+            if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) /*If the left stick is not neutral...*/ {
+                double drive = -gamepad1.left_stick_y; //Set the Drive to the negative value of the y-axis value
+                double turn = gamepad1.left_stick_x; //Set the turn to the value of the x-axis value
 
-                leftPower = Range.clip(drive + turn, -1.0, 1.0);
-                rightPower = Range.clip(drive - turn, -1.0, 1.0);
+                leftPower = Range.clip(drive + turn, -1.0, 1.0); //fun math
+                rightPower = Range.clip(drive - turn, -1.0, 1.0); //fun math 2
 
-                frontLeftMotor.setPower(leftPower);
+                frontLeftMotor.setPower(leftPower); //These are hopefully self-explanatory.
                 frontRightMotor.setPower(rightPower);
                 backLeftMotor.setPower(leftPower);
                 backRightMotor.setPower(rightPower);
             }
-            while (gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || gamepad1.right_bumper) {
 
-                while (gamepad1.right_trigger > 0 && !gamepad1.right_bumper) {
+            if (gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || gamepad1.right_bumper) /*These are our trigger modes*/ {
+
+                //These 2 if blocks are the default mode: Point Turn Mode
+                if (gamepad1.right_trigger > 0 && !gamepad1.right_bumper) {
                     frontLeftMotor.setPower(gamepad1.right_trigger);
                     frontRightMotor.setPower(-gamepad1.right_trigger);
                     backLeftMotor.setPower(gamepad1.right_trigger);
                     backRightMotor.setPower(-gamepad1.right_trigger);
                 }
-                while (gamepad1.left_trigger > 0 && !gamepad1.right_bumper) {
+                if (gamepad1.left_trigger > 0 && !gamepad1.right_bumper) {
                     frontLeftMotor.setPower(-gamepad1.left_trigger);
                     frontRightMotor.setPower(gamepad1.left_trigger);
                     backLeftMotor.setPower(-gamepad1.left_trigger);
                     backRightMotor.setPower(gamepad1.left_trigger);
                 }
 
-                while (gamepad1.right_bumper) {
-                    while (gamepad1.right_trigger > 0) {
+                //This big nested if block is the left-right strafing mode
+                if (gamepad1.right_bumper) {
+                    if (gamepad1.right_trigger > 0) {
                         frontLeftMotor.setPower(gamepad1.right_trigger);
                         frontRightMotor.setPower(-gamepad1.right_trigger);
                         backLeftMotor.setPower(-gamepad1.right_trigger);
                         backRightMotor.setPower(gamepad1.right_trigger);
                     }
 
-                    while (gamepad1.left_trigger > 0) {
+                    if (gamepad1.left_trigger > 0) {
                         frontLeftMotor.setPower(-gamepad1.left_trigger);
                         frontRightMotor.setPower(gamepad1.left_trigger);
                         backLeftMotor.setPower(gamepad1.left_trigger);
@@ -110,21 +113,27 @@ public class UltimaTeleOp extends LinearOpMode {
                     }
                 }
             }
-            while (gamepad1.a) {
+
+            //If A is pressed, Close the Glyph manipulator
+            if (gamepad1.a) {
                 leftServo.setPosition(0.5);
                 rightServo.setPosition(0.5);
             }
-            while (gamepad1.b) {
+
+            //If B is pressed, Open the Glyph manipulator
+            if (gamepad1.b) {
                 leftServo.setPosition(0.0);
                 rightServo.setPosition(1.0);
             }
-            //if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
-            //{
+
+            //
+            if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
+            {
                 frontLeftMotor.setPower(0.0);
                 frontRightMotor.setPower(0.0);
                 backLeftMotor.setPower(0.0);
                 backRightMotor.setPower(0.0);
-            //}
+            }
             telemetry.addData("Status", "Running");
             telemetry.update();
             idle();
