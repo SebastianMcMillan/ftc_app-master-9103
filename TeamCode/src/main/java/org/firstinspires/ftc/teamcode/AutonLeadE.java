@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -36,6 +37,7 @@ public class AutonLeadE extends LinearOpMode {
     private Servo leftServo; //Port 1 on Controller sonicScrewdriver
     private Servo rightServo; //Port 2 on Controller sonicScrewdriver
 
+    private OpticalDistanceSensor ODS1; //Note that literally all code involving ODS1 is test code looking at how the ODS works.
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -58,6 +60,8 @@ public class AutonLeadE extends LinearOpMode {
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        ODS1 = hardwareMap.opticalDistanceSensor.get("ODS1");
+
         leftServo.setPosition(0.0);
         rightServo.setPosition(1.0);
 
@@ -69,7 +73,7 @@ public class AutonLeadE extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        if (opModeIsActive())
+        while (opModeIsActive()) {
             frontLeftMotor.setPower(1.0);
             frontRightMotor.setPower(1.0);
             backRightMotor.setPower(1.0);
@@ -88,6 +92,14 @@ public class AutonLeadE extends LinearOpMode {
             backRightMotor.setPower(1.0);
             sleep(400);
 
+
+            if (ODS1.getLightDetected() < 10) {
+                frontLeftMotor.setPower(-0.25);
+                frontRightMotor.setPower(0.5);
+                backLeftMotor.setPower(-0.75);
+                backRightMotor.setPower(1.0);
+            }
+        }
 
 
 
